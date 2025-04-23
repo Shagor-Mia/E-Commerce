@@ -71,9 +71,9 @@ const createOrder = async (req, res) => {
       total_amount: totalAmount,
       currency: "BDT",
       tran_id: tranId, // Use the order ID as transaction ID
-      success_url: "http://localhost:5000/shop/paypal-return",
-      fail_url: "http://localhost:5000/shop/payment-fail",
-      cancel_url: "http://localhost:5000/shop/payment-cancel",
+      success_url: "baseURL/shop/paypal-return",
+      fail_url: "baseURL/shop/payment-fail",
+      cancel_url: "baseURL/shop/payment-cancel",
       product_name: "E-commerce Products",
       product_category: "E-commerce",
       product_profile: "general",

@@ -1,3 +1,4 @@
+import { baseURL } from "@/baseURL";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -11,12 +12,9 @@ const initialState = {
 export const getLoggedInUsers2 = createAsyncThunk(
   "/admin/logged-in-users",
   async () => {
-    const response = await axios.get(
-      "http://localhost:5000/api/admin/logged-in-users",
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await axios.get(`${baseURL}/api/admin/logged-in-users`, {
+      withCredentials: true,
+    });
     return response.data;
   }
 );
@@ -25,7 +23,9 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser: (state, action) => {},
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -39,7 +39,7 @@ const authSlice = createSlice({
           ? action.payload.users
           : [];
       })
-      .addCase(getLoggedInUsers2.rejected, (state, action) => {
+      .addCase(getLoggedInUsers2.rejected, (state) => {
         state.isLoading = false;
         state.loggedInUsers = [];
       });
