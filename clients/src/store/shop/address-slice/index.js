@@ -1,3 +1,4 @@
+import { baseURL } from "@/baseURL";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -10,7 +11,7 @@ export const addNewAddress = createAsyncThunk(
   "/addresses/addNewAddress",
   async (formData) => {
     const response = await axios.post(
-      "http://localhost:5000/api/shop/address/add",
+      `${baseURL}/api/shop/address/add`,
       formData
     );
 
@@ -22,7 +23,7 @@ export const fetchAllAddresses = createAsyncThunk(
   "/addresses/fetchAllAddresses",
   async (userId) => {
     const response = await axios.get(
-      `http://localhost:5000/api/shop/address/get/${userId}`
+      `${baseURL}/api/shop/address/get/${userId}`
     );
 
     return response.data;
@@ -33,7 +34,7 @@ export const editaAddress = createAsyncThunk(
   "/addresses/editaAddress",
   async ({ userId, addressId, formData }) => {
     const response = await axios.put(
-      `http://localhost:5000/api/shop/address/update/${userId}/${addressId}`,
+      `${baseURL}/api/shop/address/update/${userId}/${addressId}`,
       formData
     );
 
@@ -45,7 +46,7 @@ export const deleteAddress = createAsyncThunk(
   "/addresses/deleteAddress",
   async ({ userId, addressId }) => {
     const response = await axios.delete(
-      `http://localhost:5000/api/shop/address/delete/${userId}/${addressId}`
+      `${baseURL}/api/shop/address/delete/${userId}/${addressId}`
     );
 
     return response.data;
@@ -61,7 +62,7 @@ const addressSlice = createSlice({
       .addCase(addNewAddress.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addNewAddress.fulfilled, (state, action) => {
+      .addCase(addNewAddress.fulfilled, (state) => {
         state.isLoading = false;
       })
       .addCase(addNewAddress.rejected, (state) => {

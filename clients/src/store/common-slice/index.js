@@ -1,3 +1,4 @@
+import { baseURL } from "@/baseURL";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -9,9 +10,7 @@ const initialState = {
 export const getFeatureImages = createAsyncThunk(
   "/order/getFeatureImages",
   async () => {
-    const response = await axios.get(
-      `http://localhost:5000/api/common/feature/get`
-    );
+    const response = await axios.get(`${baseURL}/api/common/feature/get`);
     return response.data;
   }
 );
@@ -19,10 +18,9 @@ export const getFeatureImages = createAsyncThunk(
 export const addFeatureImage = createAsyncThunk(
   "/order/addFeatureImage",
   async (image) => {
-    const response = await axios.post(
-      `http://localhost:5000/api/common/feature/add`,
-      { image }
-    );
+    const response = await axios.post(`${baseURL}/api/common/feature/add`, {
+      image,
+    });
     return response.data;
   }
 );
@@ -31,7 +29,7 @@ export const updateFeatureImage = createAsyncThunk(
   "/order/updateFeatureImage",
   async ({ id, updatedImage }) => {
     const response = await axios.put(
-      `http://localhost:5000/api/common/feature/update/${id}`,
+      `${baseURL}/api/common/feature/update/${id}`,
       { image: updatedImage }
     );
     return response.data;
@@ -42,7 +40,7 @@ export const deleteFeatureImage = createAsyncThunk(
   "/order/deleteFeatureImage",
   async (id) => {
     const response = await axios.delete(
-      `http://localhost:5000/api/common/feature/delete/${id}`
+      `${baseURL}/api/common/feature/delete/${id}`
     );
     return response.data;
   }
